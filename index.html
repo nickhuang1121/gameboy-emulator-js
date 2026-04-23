@@ -5,12 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-dmg.css">
+    <link rel="stylesheet" href="css/style-mobile.css">
 </head>
 
 <body>
-    <canvas id="bootLogo" width="192" height="32">
 
-    </canvas>
+
+    <div class="gameboy">
+        <div class="display">
+            <div class="display-content">
+                <canvas id="bootLogo" width="320" height="288"></canvas>
+            </div>
+
+        </div>
+        <div class="rom-input"><span>New ROM</span><input id="rom-input" type="file" accept=".gb"></div>
+
+        <div class="joypad" id="joypad">
+            <div class="crosspad" id="crosspad">
+                <button class="up" data-key="ArrowUp" id="up-button"></button>
+                <button class="down" data-key="ArrowDown" id="down-button"></button>
+                <button class="right" data-key="ArrowRight" id="right-button"></button>
+                <button class="left" data-key="ArrowLeft" id="left-button"></button>
+            </div>
+
+            <button class="round-button a-button" data-key="KeyZ" id="a-button">A</button>
+            <button class="round-button b-button" data-key="KeyX" id="b-button">B</button>
+
+            <button class="square-button select-button" data-key="ShiftLeft" id="select-button"></button>
+            <button class="square-button enter-button" data-key="Enter" id="start-button"></button>
+
+        </div>
+
+    </div>
+
+
+
     <!-- <script src="script/cartridge.js"></script>
     <script src="script/ppu.js"></script>
     <script src="script/apu.js"></script>

@@ -1,0 +1,182 @@
+/* Load this file after style-dmg.css for mobile layout overrides. */
+
+@media (max-width: 480px) {
+    body {
+        padding: 8px 0 24px;
+        overflow-x: hidden;
+    }
+
+    .gameboy {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        padding: 10px 0 28px;
+        border-width: 0;
+        border-radius: 24px;
+        box-shadow: none;
+    }
+
+    .gameboy::after {
+        display: none;
+    }
+
+    .display {
+        box-sizing: border-box;
+        width: 320px;
+        margin: 0 auto;
+        padding: 24px 0 18px;
+        border-radius: 16px;
+    }
+
+    .display::before {
+        top: 8px;
+        left: 10px;
+        right: 10px;
+        padding: 2px 0;
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+
+    .display::after {
+        top: 147px;
+        left: 8px;
+        width: 10px;
+        height: 10px;
+    }
+
+    .display-content {
+        border-width: 0;
+        border-radius: 0;
+    }
+
+    .display-content canvas,
+    #bootLogo {
+        display: block;
+        width: 320px;
+        height: 288px;
+        max-width: none;
+        max-height: none;
+    }
+
+    .joypad {
+        display: grid;
+        grid-template-columns: 124px 64px 64px;
+        grid-template-rows: 72px 40px;
+        grid-template-areas:
+            "dpad b a"
+            "dpad select start";
+        justify-content: space-between;
+        align-items: end;
+        width: 320px;
+        min-height: 0;
+        margin: 0 auto;
+        /* padding-top: 56px; */
+        column-gap: 10px;
+        row-gap: 14px;
+    }
+
+    .joypad::before {
+        top: 4px;
+        left: 0;
+        width: 320px;
+        font-size: 18px;
+        letter-spacing: -0.3px;
+        text-align: center;
+        transform: none;
+    }
+
+    .crosspad {
+        grid-area: dpad;
+        width: 124px;
+        height: 124px;
+        align-self: end;
+        filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, 0.28));
+    }
+
+    .crosspad::after,
+    .crosspad::before {
+        left: 42px;
+        width: 40px;
+        height: 124px;
+    }
+
+    .crosspad::before {
+        top: 42px;
+        left: 0;
+        width: 124px;
+        height: 40px;
+    }
+
+    .crosspad .up,
+    .crosspad .down {
+        left: 42px;
+    }
+
+    .crosspad .left,
+    .crosspad .right {
+        top: 42px;
+    }
+
+    .round-button,
+    .square-button {
+        position: static;
+        justify-self: center;
+        align-self: center;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .round-button {
+        width: 64px;
+        height: 64px;
+        font-size: 22px;
+        transform: rotate(-18deg);
+    }
+
+    .a-button {
+        grid-area: a;
+        align-self: start;
+    }
+
+    .b-button {
+        grid-area: b;
+        align-self: end;
+        transform: translateY(14px) rotate(-18deg);
+    }
+
+    .square-button {
+        width: 56px;
+        height: 14px;
+        transform: rotate(-20deg);
+    }
+
+    .select-button {
+        grid-area: select;
+    }
+
+    .enter-button {
+        grid-area: start;
+    }
+
+    .select-button::after,
+    .enter-button::after {
+        top: 18px;
+        font-size: 9px;
+        letter-spacing: 1px;
+        transform: translateX(-50%) rotate(20deg);
+    }
+
+    .a-button:active {
+        transform: translateY(2px) rotate(-18deg);
+    }
+
+    .b-button:active {
+        transform: translateY(16px) rotate(-18deg);
+    }
+
+    .square-button:active {
+        transform: translateY(1px) rotate(-20deg);
+    }
+}

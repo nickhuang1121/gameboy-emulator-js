@@ -1,0 +1,216 @@
+/* Load this file after style.css to apply the DMG skin. */
+
+:root {
+    --dmg-shell-top: #dddace;
+    --dmg-shell-bottom: #c8c5b8;
+    --dmg-shell-edge: #bdb9aa;
+    --dmg-bezel-top: #767b85;
+    --dmg-bezel-bottom: #59606b;
+    --dmg-purple: #5d4d95;
+    --dmg-blue: #4b679a;
+    --dmg-gold: #b9a95f;
+    --dmg-screen: #99a36a;
+    --dmg-screen-shadow: #667048;
+    --dmg-button-top: #8a2f5a;
+    --dmg-button-bottom: #5d1838;
+    --dmg-system-top: #4a5361;
+    --dmg-system-bottom: #181d26;
+    --dmg-ink: #23262d;
+}
+
+body {
+    background: radial-gradient(circle at top, #f6f0da 0, #e6dec6 55%, #d6ccb0 100%);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.gameboy {
+    position: relative;
+    padding: 28px 28px 116px;
+    background: linear-gradient(180deg, var(--dmg-shell-top) 0, #d4d1c5 50px, var(--dmg-shell-bottom) 100%);
+    border: 2px solid var(--dmg-shell-edge);
+    border-radius: 12px 12px 82px 12px;
+    box-shadow: 0 18px 30px rgba(54, 47, 33, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.65), inset 0 -4px 8px rgba(104, 95, 79, 0.2);
+}
+
+.gameboy::after {
+    content: "";
+    position: absolute;
+    right: 34px;
+    bottom: 34px;
+    width: 104px;
+    height: 70px;
+    background: repeating-linear-gradient(104deg, transparent 0 8px, rgba(35, 38, 45, 0.88) 8px 11px);
+    border-radius: 6px;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.display {
+    padding: 34px 24px 40px 60px;
+    background: linear-gradient(180deg, var(--dmg-bezel-top) 0, var(--dmg-bezel-bottom) 100%);
+    border-radius: 12px 12px 40px 12px;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.18), inset 0 -4px 10px rgba(0, 0, 0, 0.45);
+}
+
+.display::before {
+    content: "DOT MATRIX WITH STEREO SOUND";
+    position: absolute;
+    top: 12px;
+    left: 26px;
+    right: 24px;
+    padding: 3px 0 2px;
+    border-top: 2px solid var(--dmg-purple);
+    border-bottom: 2px solid var(--dmg-blue);
+    color: var(--dmg-gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.35px;
+    text-align: center;
+}
+
+.display::after {
+    top: 154px;
+    left: 22px;
+    width: 12px;
+    height: 12px;
+    background: #d74d46;
+    box-shadow: 0 0 14px rgba(255, 89, 74, 0.8);
+}
+
+.display-content {
+    position: relative;
+    border: 6px solid #1c2128;
+    border-radius: 8px;
+    background: var(--dmg-screen);
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08), inset 0 0 18px rgba(58, 65, 38, 0.42);
+}
+
+.display-content canvas {
+    display: block;
+    background: linear-gradient(180deg, #a2ac74 0, var(--dmg-screen) 100%);
+}
+
+.joypad {
+    min-height: 250px;
+    /* padding-top: 74px; */
+}
+
+/* .joypad::before {
+    content: "Nick's GAME BOY";
+    position: absolute;
+    top: 4px;
+    left: 122px;
+    color: #29396e;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+} */
+
+.crosspad {
+    width: 148px;
+    height: 148px;
+    filter: drop-shadow(3px 5px 6px rgba(0, 0, 0, 0.32));
+}
+
+.crosspad::after,
+.crosspad::before {
+    left: 54px;
+    width: 40px;
+    height: 148px;
+    background: linear-gradient(180deg, #424850 0, #1a1d22 55%, #0d0f13 100%);
+    border-radius: 7px;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.08), inset -2px -2px 4px rgba(0, 0, 0, 0.58);
+}
+
+.crosspad::before {
+    top: 54px;
+    left: 0;
+    width: 148px;
+    height: 40px;
+}
+
+.crosspad button {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    appearance: none;
+}
+
+.crosspad .up,
+.crosspad .down {
+    left: 54px;
+}
+
+.crosspad .left,
+.crosspad .right {
+    top: 54px;
+}
+
+.round-button {
+    width: 74px;
+    height: 74px;
+    background: linear-gradient(180deg, var(--dmg-button-top) 0, #712244 55%, var(--dmg-button-bottom) 100%);
+    box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.2), inset -3px -3px 7px rgba(0, 0, 0, 0.35), 0 6px 8px rgba(0, 0, 0, 0.28);
+    color: #f0e3e7;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 700;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.24);
+    transform: rotate(-24deg);
+}
+
+.a-button {
+    top: 72px;
+    left: 252px;
+}
+
+.b-button {
+    top: 46px;
+    left: 336px;
+}
+
+.square-button {
+    bottom: -18px;
+    width: 54px;
+    height: 12px;
+    background: linear-gradient(180deg, var(--dmg-system-top) 0, var(--dmg-system-bottom) 100%);
+    border-radius: 12px;
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.1), 0 3px 4px rgba(0, 0, 0, 0.28);
+    transform: rotate(-25deg);
+}
+
+.select-button {
+    left: 146px;
+}
+
+.enter-button {
+    left: 222px;
+}
+
+.select-button::after,
+.enter-button::after {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    color: #354067;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    transform: translateX(-50%) rotate(25deg);
+}
+
+.select-button::after {
+    content: "SELECT";
+}
+
+.enter-button::after {
+    content: "START";
+}
+
+.round-button:active {
+    transform: translateY(2px) rotate(-24deg);
+}
+
+.square-button:active {
+    transform: translateY(1px) rotate(-25deg);
+}

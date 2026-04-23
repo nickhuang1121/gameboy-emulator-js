@@ -1,0 +1,171 @@
+:root {
+    --shell-color: lightgray;
+    --display-color: #555;
+    --dpad-color: #222;
+    --action-button-color: #641d3b;
+    --system-button-color: #0b0d21;
+    --panel-radius: 20px;
+    --shell-corner-radius: 60px;
+    --shell-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5), inset 2px 2px 5px rgba(255, 255, 255, 0.75), inset -2px -2px 5px rgba(0, 0, 0, 0.5);
+    --panel-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 4px rgba(0, 0, 0, 0.5);
+    --button-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.25), inset 0 0 4px rgba(0, 0, 0, 0.5), 1px 1px 3px rgba(0, 0, 0, 0.75);
+}
+
+body {
+    padding: 30px;
+}
+
+.gameboy {
+    display: inline-block;
+    padding: 50px 50px 100px;
+    background: var(--shell-color);
+    border-radius: var(--panel-radius) var(--panel-radius) var(--shell-corner-radius) var(--panel-radius);
+    box-shadow: var(--shell-shadow);
+}
+
+.display {
+    position: relative;
+    padding: 20px 30px 20px 80px;
+    background: var(--display-color);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--panel-shadow);
+}
+
+.display::after {
+    content: "";
+    position: absolute;
+    top: 131px;
+    left: 43px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 1), inset 0 0 10px rgba(255, 0, 0, 1), inset 0 0 6px rgba(255, 0, 0, 1);
+}
+
+.display-content {
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.joypad {
+    position: relative;
+    width: 430px;
+    /* padding-top: 50px; */
+}
+
+.crosspad {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.75));
+}
+
+.crosspad::after,
+.crosspad::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 40px;
+    height: 140px;
+    background: var(--dpad-color);
+    border-radius: 5px;
+}
+
+.crosspad::before {
+    top: 50px;
+    left: 0;
+    width: 140px;
+    height: 40px;
+}
+
+.crosspad button {
+    position: absolute;
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.crosspad .up,
+.crosspad .down {
+    left: 50px;
+}
+
+.crosspad .up {
+    top: 0;
+}
+
+.crosspad .down {
+    bottom: 0;
+}
+
+.crosspad .left,
+.crosspad .right {
+    top: 50px;
+}
+
+.crosspad .left {
+    left: 0;
+}
+
+.crosspad .right {
+    right: 0;
+}
+
+.round-button {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 999px;
+    color: antiquewhite;
+    font-size: 20px;
+    background: var(--action-button-color);
+    box-shadow: var(--button-shadow);
+    cursor: pointer;
+}
+
+.a-button {
+    top: 70px;
+    left: 237px;
+}
+
+.b-button {
+    top: 50px;
+    left: 344px;
+}
+
+.square-button {
+    position: absolute;
+    bottom: -30px;
+    left: 150px;
+    width: 50px;
+    height: 10px;
+    border: none;
+    border-radius: 10px;
+    background: var(--system-button-color);
+    transform: rotate(-30deg);
+    cursor: pointer;
+}
+
+.enter-button {
+    left: 220px;
+}
+
+.rom-input {
+    display: flex;
+    justify-content: center;
+    padding: 20px 10px;
+}
+
+.rom-input span {
+    color: #29396e;
+    font-size: 28px;
+    font-weight: 700;
+}
