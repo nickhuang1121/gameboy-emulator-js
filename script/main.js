@@ -95,6 +95,11 @@ class Start {
         ctx.imageSmoothingEnabled = false;
     }
 
+    reloadAfterAlert(message) {
+        alert(message);
+        window.location.reload();
+    }
+
     async stop() {
         if (this.frameId !== null) {
             cancelAnimationFrame(this.frameId);
@@ -129,6 +134,10 @@ class Start {
 
         try {
             const header = await gb.init({ romFile: file });
+            if (header.mapperType !== 'romOnly' && !header.mapperType.startsWith('MBC5')) {
+                this.reloadAfterAlert(`目前只支援 ROM ONLY / MBC5，這個 ROM 是 ${header.mapperType}`);
+                return;
+            }
             if (this.loadId !== loadId || this.gb !== gb) {
                 return;
             }
@@ -166,6 +175,7 @@ class Start {
             if (this.gb === gb) {
                 this.gb = null;
             }
+            this.reloadAfterAlert(err.message ?? 'ROM 載入失敗');
             console.error(err);
         }
     }
@@ -191,4 +201,3 @@ romInput.addEventListener('change', async (e) => {
         e.target.value = '';
     }
 });
-
