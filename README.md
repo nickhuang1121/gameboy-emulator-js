@@ -6,7 +6,7 @@
 
 ## 📌 專案介紹（中文）
 
-這是一個使用 JavaScript 開發的瀏覽器版 Game Boy 模擬器，從零開始實作，涵蓋 CPU 指令執行、記憶體管理與卡匣機制（MBC5）。本專案著重於還原 Game Boy 的核心運作邏輯，並透過模組化架構拆分 CPU、記憶體與渲染流程，以提升可維護性與擴展性。
+這是一個使用 JavaScript 開發的瀏覽器版 Game Boy 模擬器，從零開始實作，涵蓋 CPU 指令執行、記憶體管理與卡匣機制（MBC1、MBC3、MBC5）。本專案著重於還原 Game Boy 的核心運作邏輯，並透過模組化架構拆分 CPU、記憶體與渲染流程，以提升可維護性與擴展性。
 
 ---
 
@@ -14,7 +14,7 @@
 
 - 🧠 CPU 指令解碼與執行（Opcode Engine）
 - 💾 記憶體管理與記憶體映射（Memory Mapping）
-- 🎮 MBC5 卡匣支援（Bank Switching）
+- 🎮 MBC1、MBC3、MBC5卡匣支援（Bank Switching）
 - 🧩 模組化架構（CPU / Memory / Renderer 分離）
 - 🌐 可直接於瀏覽器運行（GitHub Pages）
 
@@ -62,7 +62,7 @@ This is a browser-based Game Boy emulator built from scratch using JavaScript. I
 
 - Opcode-based CPU execution
 - Memory management & mapping
-- MBC5 cartridge support (bank switching)
+- MBC1、MBC3、MBC5 cartridge support (bank switching)
 - Modular architecture (CPU / Memory / Renderer)
 - Runs directly in the browser
 
