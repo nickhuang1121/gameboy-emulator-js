@@ -61,7 +61,7 @@ export class GB {
         }
 
         this.romFile = obj.romFile;
-        await this.cartridge.loadROM(obj.romFile);
+        await this.cartridge.loadROM(obj.romFile, { saveName: obj.saveName ?? null });
         return this.cartridge.header;
     }
 }

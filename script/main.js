@@ -35,7 +35,12 @@ class Start {
         window.addEventListener('blur', this.handleBlur);
         window.addEventListener('pointerdown', this.unlockAudio);
         window.addEventListener('keydown', this.unlockAudio);
+        window.addEventListener('pagehide', this.flushSave);
     }
+
+    flushSave = () => {
+        this.gb?.cartridge?.flushBatterySave();
+    };
 
     unlockAudio = async () => {
         if (!this.gb) return;
@@ -111,6 +116,7 @@ class Start {
         }
 
         this.gb.releaseAllButtons();
+        this.gb.cartridge?.flushBatterySave();
 
         const audioCtx = this.gb.apu?.audioCtx;
         this.gb = null;
@@ -126,6 +132,7 @@ class Start {
 
     async init(file) {
         const loadId = ++this.loadId;
+        const romOptions = typeof file === 'string' ? { romFile: file, saveName: file } : file;
 
         await this.stop();
 
@@ -133,9 +140,14 @@ class Start {
         this.gb = gb;
 
         try {
-            const header = await gb.init({ romFile: file });
-            if (header.mapperType !== 'romOnly' && !header.mapperType.startsWith('MBC5')) {
-                this.reloadAfterAlert(`目前只支援 ROM ONLY / MBC5，這個 ROM 是 ${header.mapperType}`);
+            const header = await gb.init(romOptions);
+            if (
+                header.mapperType !== 'romOnly' &&
+                !header.mapperType.startsWith('MBC1') &&
+                !header.mapperType.startsWith('MBC3') &&
+                !header.mapperType.startsWith('MBC5')
+            ) {
+                this.reloadAfterAlert(`目前只支援 ROM ONLY / MBC1 / MBC3 / MBC5，這個 ROM 是 ${header.mapperType}`);
                 return;
             }
             if (this.loadId !== loadId || this.gb !== gb) {
@@ -182,7 +194,7 @@ class Start {
 }
 
 const start = new Start();
-start.init('book_demo.gb');
+start.init({ romFile: 'book_demo.gb', saveName: 'book_demo.gb' });
 
 
 const romInput = document.querySelector('#rom-input');
@@ -193,7 +205,7 @@ romInput.addEventListener('change', async (e) => {
     const romUrl = URL.createObjectURL(file);
 
     try {
-        await start.init(romUrl);
+        await start.init({ romFile: romUrl, saveName: file.name });
     } catch (err) {
         console.error('ROM 載入失敗：', err);
     } finally {
