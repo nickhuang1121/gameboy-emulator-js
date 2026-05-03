@@ -1,62 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>裕淵的GB模擬器</title>
-    <link rel="canonical" href="https://nickhuang1121.github.io/gameboy-emulator-js/">
-    <meta name="description" content="在瀏覽器中遊玩的 Game Boy 模擬器。">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://nickhuang1121.github.io/gameboy-emulator-js/">
-    <meta property="og:title" content="裕淵的GB模擬器">
-    <meta property="og:description" content="在瀏覽器中遊玩的 Game Boy 模擬器。">
-    <meta property="og:image" content="https://nickhuang1121.github.io/gameboy-emulator-js/images/img_gbemu.jpg">
-    <meta property="og:image:width" content="480">
-    <meta property="og:image:height" content="360">
-    <meta property="og:image:alt" content="裕淵的GB模擬器畫面截圖">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="裕淵的GB模擬器">
-    <meta name="twitter:description" content="在瀏覽器中遊玩的 Game Boy 模擬器。">
-    <meta name="twitter:image" content="https://nickhuang1121.github.io/gameboy-emulator-js/images/img_gbemu.jpg">
+    <title>裕淵的GB模擬器 Debug Workbench</title>
+    <meta name="description" content="Game Boy emulator debug workbench with live CPU registers, opcode trace, mapper state, and input mapping.">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style-dmg.css">
     <link rel="stylesheet" href="css/style-mobile.css">
+    <link rel="stylesheet" href="css/debug-tools.css">
 </head>
 
-<body>
+<body class="debug-workbench">
+    <main class="debug-layout">
+        <section class="emulator-stage" aria-label="Game Boy emulator">
+            <div class="gameboy">
+                <div class="display">
+                    <div class="display-content">
+                        <canvas id="bootLogo" width="320" height="288"></canvas>
+                    </div>
+                </div>
 
+                <div class="rom-input">
+                    <span>Upload ROM</span>
+                    <input id="rom-input" type="file" accept=".gb">
+                </div>
 
-    <div class="gameboy">
-        <div class="display">
-            <div class="display-content">
-                <canvas id="bootLogo" width="320" height="288"></canvas>
+                <div class="joypad" id="joypad">
+                    <div class="crosspad" id="crosspad">
+                        <button class="up" data-key="ArrowUp" id="up-button" aria-label="Up"></button>
+                        <button class="down" data-key="ArrowDown" id="down-button" aria-label="Down"></button>
+                        <button class="right" data-key="ArrowRight" id="right-button" aria-label="Right"></button>
+                        <button class="left" data-key="ArrowLeft" id="left-button" aria-label="Left"></button>
+                    </div>
+
+                    <button class="round-button a-button" data-key="KeyZ" id="a-button">A</button>
+                    <button class="round-button b-button" data-key="KeyX" id="b-button">B</button>
+
+                    <button class="square-button select-button" data-key="ShiftLeft" id="select-button" aria-label="Select"></button>
+                    <button class="square-button enter-button" data-key="Enter" id="start-button" aria-label="Start"></button>
+                </div>
             </div>
+        </section>
 
-        </div>
-        <div class="rom-input"><span>New ROM</span><input id="rom-input" type="file" accept=".gb"></div>
+        <aside class="debug-panel" aria-label="Emulator debug panel">
+            <header class="debug-panel-header">
+                <p class="debug-kicker">DMG DEBUG WORKBENCH</p>
+                <h1>暫存器 / Opcode / Input Map</h1>
+                <div class="status-strip">
+                    <span id="run-state">BOOT</span>
+                    <span id="rom-title">book_demo.gb</span>
+                </div>
+            </header>
 
-        <div class="joypad" id="joypad">
-            <div class="crosspad" id="crosspad">
-                <button class="up" data-key="ArrowUp" id="up-button"></button>
-                <button class="down" data-key="ArrowDown" id="down-button"></button>
-                <button class="right" data-key="ArrowRight" id="right-button"></button>
-                <button class="left" data-key="ArrowLeft" id="left-button"></button>
-            </div>
+            <section class="debug-toolbar" aria-label="Execution controls">
+                <button id="pause-toggle" type="button">Pause</button>
+                <button id="step-button" type="button" hidden>Step</button>
+                <label class="upload-rom-button" for="rom-input">Upload ROM</label>
+            </section>
 
-            <button class="round-button a-button" data-key="KeyZ" id="a-button">A</button>
-            <button class="round-button b-button" data-key="KeyX" id="b-button">B</button>
+            <section class="debug-section opcode-section">
+                <div class="section-title">
+                    <h2>目前操作碼</h2>
+                    <button id="opcode-log-toggle" type="button" aria-expanded="false">Trace</button>
+                </div>
+                <div class="opcode-readout">
+                    <span id="opcode-value">--</span>
+                    <span id="opcode-mnemonic">Waiting for CPU</span>
+                    <span id="opcode-pc">PC --</span>
+                    <span id="opcode-cycles">-- cycles</span>
+                </div>
+                <textarea id="opcode-log" class="opcode-log" readonly aria-label="Recent opcode trace"></textarea>
+            </section>
 
-            <button class="square-button select-button" data-key="ShiftLeft" id="select-button"></button>
-            <button class="square-button enter-button" data-key="Enter" id="start-button"></button>
+            <section class="debug-section">
+                <div class="section-title">
+                    <h2>8-bit 暫存器</h2>
+                </div>
+                <div id="register-grid" class="metric-grid metric-grid-4"></div>
+            </section>
 
-        </div>
+            <section class="debug-section">
+                <div class="section-title">
+                    <h2>16-bit / CPU</h2>
+                </div>
+                <div id="cpu-grid" class="metric-grid metric-grid-3"></div>
+            </section>
 
-    </div>
+            <section class="debug-section">
+                <div class="section-title">
+                    <h2>Flags</h2>
+                </div>
+                <div id="flag-grid" class="flag-grid"></div>
+            </section>
 
-    <script type="module" src="script/main.js"></script>
+            <section class="debug-section">
+                <div class="section-title">
+                    <h2>IO / PPU / Timer</h2>
+                </div>
+                <div id="io-grid" class="metric-grid metric-grid-4"></div>
+            </section>
 
+            <section class="debug-section">
+                <div class="section-title">
+                    <h2>MBC / Cartridge</h2>
+                </div>
+                <div id="mapper-grid" class="metric-grid metric-grid-3"></div>
+            </section>
+
+            <section class="debug-section input-section">
+                <div class="section-title">
+                    <h2>遊戲映射操作</h2>
+                </div>
+                <div id="input-map" class="input-map"></div>
+            </section>
+        </aside>
+    </main>
+
+    <script type="module" src="script/debug-main.js"></script>
 </body>
 
 </html>

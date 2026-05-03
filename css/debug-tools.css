@@ -1,0 +1,426 @@
+* {
+    box-sizing: border-box;
+}
+
+.debug-workbench {
+    min-height: 100vh;
+    padding: 24px;
+    overflow-x: hidden;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(135deg, #101316 0, #1b1f22 46%, #24211d 100%);
+    background-size: 24px 24px, 24px 24px, auto;
+    color: #e7ece8;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.debug-layout {
+    display: grid;
+    grid-template-columns: minmax(430px, 560px) minmax(420px, 1fr);
+    align-items: start;
+    gap: 20px;
+    width: min(1280px, 100%);
+    margin: 0 auto;
+}
+
+.emulator-stage {
+    position: sticky;
+    top: 24px;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+}
+
+.debug-workbench .gameboy {
+    max-width: 100%;
+}
+
+.debug-workbench .rom-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.debug-panel {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid rgba(231, 236, 232, 0.12);
+    border-radius: 8px;
+    background: rgba(14, 18, 20, 0.88);
+    box-shadow: 0 20px 38px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+}
+
+.debug-panel-header {
+    display: grid;
+    gap: 8px;
+    padding: 2px 2px 4px;
+}
+
+.debug-kicker {
+    color: #89e078;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+}
+
+.debug-panel h1 {
+    margin: 0;
+    color: #f5f7f1;
+    font-size: 24px;
+    line-height: 1.1;
+    letter-spacing: 0;
+}
+
+.status-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.status-strip span,
+.opcode-readout span,
+.metric,
+.flag,
+.input-map-item {
+    border: 1px solid rgba(231, 236, 232, 0.12);
+    background: rgba(255, 255, 255, 0.045);
+}
+
+.status-strip span {
+    min-width: 76px;
+    padding: 6px 9px;
+    border-radius: 6px;
+    color: #cbd6cc;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#run-state[data-state="running"] {
+    border-color: rgba(137, 224, 120, 0.45);
+    color: #89e078;
+}
+
+#run-state[data-state="paused"] {
+    border-color: rgba(255, 207, 102, 0.5);
+    color: #ffcf66;
+}
+
+#run-state[data-state="stopped"] {
+    border-color: rgba(255, 112, 112, 0.5);
+    color: #ff9292;
+}
+
+.debug-toolbar {
+    display: grid;
+    grid-template-columns: 86px 116px;
+    gap: 8px;
+}
+
+.debug-toolbar button,
+.debug-toolbar .upload-rom-button,
+.section-title button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    border: 1px solid rgba(231, 236, 232, 0.14);
+    border-radius: 6px;
+    background: #20262a;
+    color: #eef4ed;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.debug-toolbar button,
+.debug-toolbar .upload-rom-button,
+.section-title button {
+    cursor: pointer;
+}
+
+.debug-toolbar [hidden] {
+    display: none;
+}
+
+.debug-toolbar button:hover,
+.debug-toolbar .upload-rom-button:hover,
+.section-title button:hover {
+    border-color: rgba(137, 224, 120, 0.45);
+}
+
+.debug-section {
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid rgba(231, 236, 232, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.section-title h2 {
+    margin: 0;
+    color: #d9e3db;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+.section-title button {
+    min-height: 30px;
+    padding: 0 10px;
+    color: #cbd6cc;
+    font-size: 12px;
+}
+
+.section-title button[aria-expanded="true"] {
+    border-color: rgba(122, 184, 255, 0.5);
+    color: #7ab8ff;
+}
+
+.opcode-readout {
+    display: grid;
+    grid-template-columns: minmax(110px, 0.8fr) minmax(160px, 1.4fr) minmax(90px, 0.7fr) minmax(72px, 0.5fr);
+    gap: 8px;
+    min-height: 68px;
+}
+
+.opcode-readout span {
+    min-width: 0;
+    min-height: 68px;
+    padding: 8px;
+    border-radius: 6px;
+    color: #cbd6cc;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 13px;
+    line-height: 1.2;
+    align-content: center;
+    overflow-wrap: anywhere;
+}
+
+#opcode-value {
+    color: #89e078;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#opcode-mnemonic {
+    color: #f5f7f1;
+}
+
+.opcode-log {
+    display: none;
+    width: 100%;
+    min-height: 220px;
+    resize: vertical;
+    padding: 10px;
+    border: 1px solid rgba(122, 184, 255, 0.25);
+    border-radius: 6px;
+    background: #0c1012;
+    color: #b8c9bc;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.opcode-log.is-open {
+    display: block;
+}
+
+.metric-grid {
+    display: grid;
+    gap: 8px;
+}
+
+.metric-grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metric-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.metric {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+    min-height: 56px;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.metric-label {
+    color: #8f9a92;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.metric-value {
+    color: #f5f7f1;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 14px;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+}
+
+.metric-value.is-hot {
+    color: #89e078;
+}
+
+.flag-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.flag {
+    min-height: 48px;
+    padding: 8px;
+    border-radius: 6px;
+    color: #69736c;
+    font-size: 18px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.flag.is-active {
+    border-color: rgba(255, 207, 102, 0.55);
+    color: #ffcf66;
+    background: rgba(255, 207, 102, 0.1);
+}
+
+.input-map {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.input-map-item {
+    display: grid;
+    grid-template-columns: minmax(76px, 0.8fr) minmax(88px, 1fr) minmax(58px, auto);
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.input-action {
+    color: #f5f7f1;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.input-key {
+    color: #aebbb1;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 12px;
+}
+
+.input-state {
+    justify-self: end;
+    min-width: 46px;
+    padding: 4px 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #7d887f;
+    font-size: 10px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.input-map-item.is-active {
+    border-color: rgba(137, 224, 120, 0.5);
+    background: rgba(137, 224, 120, 0.08);
+}
+
+.input-map-item.is-active .input-state {
+    background: rgba(137, 224, 120, 0.18);
+    color: #89e078;
+}
+
+@media (max-width: 1020px) {
+    .debug-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .emulator-stage {
+        position: static;
+    }
+}
+
+@media (max-width: 620px) {
+    .debug-workbench {
+        padding: 10px;
+    }
+
+    .debug-panel {
+        padding: 10px;
+    }
+
+    .debug-toolbar,
+    .opcode-readout,
+    .metric-grid-3,
+    .metric-grid-4,
+    .input-map {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #opcode-mnemonic {
+        grid-column: 1 / -1;
+    }
+
+    .flag-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .debug-workbench {
+        padding: 8px 0 18px;
+    }
+
+    .debug-layout {
+        gap: 12px;
+    }
+
+    .debug-panel {
+        width: min(100% - 16px, 420px);
+        margin: 0 auto;
+    }
+
+    .debug-panel h1 {
+        font-size: 20px;
+    }
+
+    .metric-grid-3,
+    .metric-grid-4 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .input-map,
+    .input-map-item {
+        grid-template-columns: 1fr;
+    }
+
+    .input-state {
+        justify-self: start;
+    }
+}
