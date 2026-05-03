@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>裕淵的GB模擬器 Debug Workbench</title>
-    <meta name="description" content="Game Boy emulator debug workbench with live CPU registers, opcode trace, mapper state, and input mapping.">
+    <meta name="description"
+        content="Game Boy emulator debug workbench with live CPU registers, opcode trace, mapper state, and input mapping.">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style-dmg.css">
@@ -39,8 +40,10 @@
                     <button class="round-button a-button" data-key="KeyZ" id="a-button">A</button>
                     <button class="round-button b-button" data-key="KeyX" id="b-button">B</button>
 
-                    <button class="square-button select-button" data-key="ShiftLeft" id="select-button" aria-label="Select"></button>
-                    <button class="square-button enter-button" data-key="Enter" id="start-button" aria-label="Start"></button>
+                    <button class="square-button select-button" data-key="ShiftLeft" id="select-button"
+                        aria-label="Select"></button>
+                    <button class="square-button enter-button" data-key="Enter" id="start-button"
+                        aria-label="Start"></button>
                 </div>
             </div>
         </section>
@@ -56,9 +59,9 @@
             </header>
 
             <section class="debug-toolbar" aria-label="Execution controls">
-                <button id="pause-toggle" type="button">Pause</button>
+                <button id="pause-toggle" type="button">暫停</button>
                 <button id="step-button" type="button" hidden>Step</button>
-                <label class="upload-rom-button" for="rom-input">Upload ROM</label>
+                <label class="upload-rom-button" for="rom-input">上傳遊戲ROM</label>
             </section>
 
             <section class="debug-section opcode-section">
